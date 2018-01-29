@@ -3,12 +3,12 @@ import numpy as np
 
 def get_w2v_dict(textfile):
     w2v_dict = {}
-    f = open(textfile, encoding='utf8')
-    line = f.readline()
-    while line:
-        parts = line.split()
-        w2v_dict[parts[0]] = np.array([float(i) for i in parts[1:]])
+    with open(textfile, encoding='utf8') as f:
         line = f.readline()
+        while line:
+            parts = line.split()
+            w2v_dict[parts[0]] = np.array([float(i) for i in parts[1:]])
+            line = f.readline()
     return w2v_dict
 
 if __name__ == '__main__':
