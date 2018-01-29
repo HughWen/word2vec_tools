@@ -9,6 +9,7 @@ from gensim.models import Word2Vec
 from gensim.models.word2vec import LineSentence
 
 
+
 if __name__ == '__main__':
     program = os.path.basename(sys.argv[0])
     logger = logging.getLogger(program)
@@ -19,14 +20,16 @@ if __name__ == '__main__':
 
     # check and process input arguments
     if len(sys.argv) < 4:
-        print globals()['__doc__'] % locals()
+        print(globals()['__doc__'] % locals())
         sys.exit(1)
     inp, outp1, outp2 = sys.argv[1:4]
 
-    model = Word2Vec(LineSentence(inp),sg=1, size=400, window=5, min_count=5,iter=5,
+    model = Word2Vec(LineSentence(inp),sg=1, size=200, hs=1, window=5, min_count=5, iter=50,
             workers=multiprocessing.cpu_count())
 
     # trim unneeded model memory = use(much) less RAM
     #model.init_sims(replace=True)
     model.save(outp1)
-    model.save_word2vec_format(outp2, binary=False)
+    model.wv.save_word2vec_format(outp2, binary=False)
+
+
